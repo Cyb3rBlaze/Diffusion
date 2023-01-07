@@ -125,7 +125,7 @@ class UNet(nn.Module):
             GELU()
         )
 
-        ### ENCODER - extracts latent features from pre-evolution images
+        ### ENCODER - extracts latent features from images
 
         # input: batch_size x 1 x 128 x 128, output: batch_size x 32 x 64 x 64
         self.encoder_blocks = [EncoderBlock(1, config.encoder_in_channels, config.time_dim, device)]
@@ -139,7 +139,7 @@ class UNet(nn.Module):
         self.encoder_blocks = nn.ModuleList(self.encoder_blocks)
 
 
-        ### DECODER - generates evolution images from latent pre-evolution latent representation
+        ### DECODER - generates evolution images from latent representation
 
         # input: batch_size x 256 x 8 x 8, output: batch_size x 128 x 16 x 16
         self.decoder_blocks = [DecoderBlock(int(config.decoder_in_channels), int(config.decoder_in_channels/2), config.time_dim, device)]
